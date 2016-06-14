@@ -1,6 +1,6 @@
 package com.sahilm.gateways.twitter;
 
-import com.sahilm.exceptions.TwitterClientException;
+import com.sahilm.exceptions.TwitterGatewayException;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import twitter4j.Query;
@@ -28,7 +28,7 @@ public class TwitterGatewayImpl implements TwitterGateway {
             final QueryResult result = twitter.search(query);
             return new TwitterQueryResponseImpl(result);
         } catch (TwitterException te) {
-            throw new TwitterClientException(te);
+            throw new TwitterGatewayException(te);
         }
     }
 }
