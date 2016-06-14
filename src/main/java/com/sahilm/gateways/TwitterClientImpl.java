@@ -14,7 +14,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-@Profile("Production")
+@Profile("default")
 public class TwitterClientImpl implements TwitterClient {
 
     private final Twitter twitter;
