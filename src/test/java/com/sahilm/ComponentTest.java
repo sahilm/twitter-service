@@ -40,15 +40,15 @@ public class ComponentTest extends AbstractTestNGSpringContextTests {
 
     @Test
     public void shouldReturnFetchedTweetsByHashtag() throws Exception {
-        List<String> expectedTweets = StubTwitterGateway.TWEETS;
+        final List<String> expectedTweets = StubTwitterGateway.TWEETS;
 
-        MvcResult mvcResult = this.mockMvc.perform(get("/tweets?hashtag=docker"))
+        final MvcResult mvcResult = this.mockMvc.perform(get("/tweets?hashtag=docker"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType("application/json;charset=UTF-8"))
                 .andReturn();
-        String responseBody = mvcResult.getResponse().getContentAsString();
+        final String responseBody = mvcResult.getResponse().getContentAsString();
         // This test tells me that the returned JSON needs to have a top-level tweets key.
-        List<String> actual = JsonPath.read(responseBody, "$..text");
+        final List<String> actual = JsonPath.read(responseBody, "$..text");
         assertThat(actual).isEqualTo(expectedTweets);
     }
 }

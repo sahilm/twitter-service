@@ -9,7 +9,7 @@ import java.util.stream.Collectors;
 public class TwitterQueryResponseImpl implements TwitterQueryResponse {
     private final QueryResult twitterClientResponse;
 
-    public TwitterQueryResponseImpl(QueryResult twitterClientResponse) {
+    public TwitterQueryResponseImpl(final QueryResult twitterClientResponse) {
         this.twitterClientResponse = twitterClientResponse;
     }
 

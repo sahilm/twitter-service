@@ -18,7 +18,7 @@ public class TwitterGatewayIT extends AbstractTestNGSpringContextTests {
     TwitterGateway twitterGateway;
 
     public void shouldBeAbleToQueryTweetsByHashtag() throws Exception {
-        TwitterQueryResponse twitterQueryResponse = twitterGateway.searchByHashtag("#docker");
+        final TwitterQueryResponse twitterQueryResponse = twitterGateway.searchByHashtag("#docker");
         assertThat(twitterQueryResponse.getTweets()).isNotEmpty();
     }
 }

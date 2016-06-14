@@ -51,11 +51,11 @@ public class TweetsControllerWiringTest extends AbstractTestNGSpringContextTests
             result = expected;
         }};
 
-        MvcResult result = this.mockMvc.perform(get("/tweets?hashtag=docker"))
+        final MvcResult result = this.mockMvc.perform(get("/tweets?hashtag=docker"))
                 .andExpect(status().isOk())
                 .andReturn();
 
-        List<Tweet> actual = new ObjectMapper().readValue(result.getResponse().getContentAsString(), new TypeReference<List<Tweet>>() {
+        final List<Tweet> actual = new ObjectMapper().readValue(result.getResponse().getContentAsString(), new TypeReference<List<Tweet>>() {
         });
         assertThat(actual).isEqualTo(expected);
     }

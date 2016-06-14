@@ -14,19 +14,19 @@ public class TweetsService {
     private final TwitterGateway twitterGateway;
 
     @Inject
-    public TweetsService(TwitterGateway twitterGateway) {
+    public TweetsService(final TwitterGateway twitterGateway) {
         this.twitterGateway = twitterGateway;
     }
 
-    public List<Tweet> getTweetsByHashtag(String hashtag) {
-        TwitterQueryResponse response = twitterGateway.searchByHashtag(normalizedHashtag(hashtag));
+    public List<Tweet> getTweetsByHashtag(final String hashtag) {
+        final TwitterQueryResponse response = twitterGateway.searchByHashtag(normalizedHashtag(hashtag));
         return response.getTweets().
                 stream().
                 map(Tweet::new).
                 collect(Collectors.toList());
     }
 
-    private String normalizedHashtag(String hashtag) {
+    private String normalizedHashtag(final String hashtag) {
         if (hashtag.startsWith("#")) {
             return hashtag;
         }

@@ -17,7 +17,7 @@ public class TweetsServiceTest {
     @Test
     public void shouldFetchTweetsFromTwitterGateway() throws Exception {
         final List<String> expectedTweets = Collections.singletonList("#microservices are the best");
-        TwitterQueryResponse expectedTwitterResponse = new TwitterQueryResponse() {
+        final TwitterQueryResponse expectedTwitterResponse = new TwitterQueryResponse() {
             @Override
             public int getCount() {
                 return expectedTweets.size();
@@ -29,7 +29,7 @@ public class TweetsServiceTest {
             }
         };
 
-        TweetsService tweetsService = new TweetsService(new TwitterGateway() {
+        final TweetsService tweetsService = new TweetsService(new TwitterGateway() {
             @Override
             public TwitterQueryResponse searchByHashtag(String hashtag) {
                 assertThat(hashtag).isEqualTo("#microservices");

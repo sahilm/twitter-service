@@ -1,5 +1,5 @@
 package com.sahilm.gateways.twitter;
 
 public interface TwitterGateway {
-    TwitterQueryResponse searchByHashtag(String hashtag);
+    TwitterQueryResponse searchByHashtag(final String hashtag);
 }

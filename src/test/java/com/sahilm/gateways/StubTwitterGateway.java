@@ -16,7 +16,7 @@ public class StubTwitterGateway implements TwitterGateway {
             Arrays.asList("#docker is the best", "#microservices for the win"));
 
     @Override
-    public TwitterQueryResponse searchByHashtag(String hashtag) {
+    public TwitterQueryResponse searchByHashtag(final String hashtag) {
         return new TwitterQueryResponse() {
             @Override
             public int getCount() {

@@ -20,12 +20,12 @@ public class TweetsController {
     private final TweetsService tweetsService;
 
     @Inject
-    public TweetsController(TweetsService tweetsService) {
+    public TweetsController(final TweetsService tweetsService) {
         this.tweetsService = tweetsService;
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public List<Tweet> getTweetsByHashtag(@RequestParam String hashtag) {
+    public List<Tweet> getTweetsByHashtag(@RequestParam final String hashtag) {
         return tweetsService.getTweetsByHashtag(hashtag);
     }
 }
