@@ -1,11 +1,13 @@
 package com.sahilm.services;
 
-import com.sahilm.gateways.TwitterGateway;
+import com.sahilm.gateways.twitter.TwitterGateway;
+import com.sahilm.gateways.twitter.TwitterQueryResponse;
 import com.sahilm.resources.Tweet;
 import org.springframework.stereotype.Component;
 
 import javax.inject.Inject;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class TweetsService {
@@ -17,7 +19,11 @@ public class TweetsService {
     }
 
     public List<Tweet> getTweetsByHashtag(String hashtag) {
-        return twitterGateway.searchByHashtag(normalizedHashtag(hashtag));
+        TwitterQueryResponse response = twitterGateway.searchByHashtag(normalizedHashtag(hashtag));
+        return response.getTweets().
+                stream().
+                map(strStatus -> new Tweet(strStatus)).
+                collect(Collectors.toList());
     }
 
     private String normalizedHashtag(String hashtag) {

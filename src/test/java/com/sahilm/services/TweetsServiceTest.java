@@ -1,6 +1,8 @@
 package com.sahilm.services;
 
-import com.sahilm.gateways.TwitterGateway;
+import com.sahilm.gateways.twitter.TwitterGateway;
+import com.sahilm.gateways.twitter.TwitterQueryResponse;
+import com.sahilm.gateways.twitter.TwitterQueryResponseImpl;
 import com.sahilm.resources.Tweet;
 import mockit.Mocked;
 import mockit.StrictExpectations;
@@ -15,17 +17,30 @@ public class TweetsServiceTest {
 
     @Test
     public void shouldFetchTweetsFromTwitterGateway() throws Exception {
-        final List<Tweet> expectedTweets = Collections.singletonList(new Tweet("#microservices are the best"));
+        final List<String> expectedTweets = Collections.singletonList("#microservices are the best");
+        TwitterQueryResponse expectedTwitterResponse = new TwitterQueryResponse() {
+            @Override
+            public int getCount() {
+                return expectedTweets.size();
+            }
+
+            @Override
+            public List<String> getTweets() {
+                return expectedTweets;
+            }
+        };
+
         TweetsService tweetsService = new TweetsService(new TwitterGateway() {
             @Override
-            public List<Tweet> searchByHashtag(String hashtag) {
+            public TwitterQueryResponse searchByHashtag(String hashtag) {
                 assertThat(hashtag).isEqualTo("#microservices");
-                return expectedTweets;
+                return expectedTwitterResponse;
             }
         });
 
         final List<Tweet> actualTweets = tweetsService.getTweetsByHashtag("#microservices");
-        assertThat(actualTweets).isEqualTo(expectedTweets);
+        // I'm writing Clojure in Java :(
+        assertThat(actualTweets.stream().map(tweet -> tweet.getText())).isEqualTo(expectedTweets);
     }
 
     @Test

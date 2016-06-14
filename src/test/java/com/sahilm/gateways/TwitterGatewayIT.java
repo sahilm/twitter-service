@@ -1,5 +1,7 @@
 package com.sahilm.gateways;
 
+import com.sahilm.gateways.twitter.TwitterGateway;
+import com.sahilm.gateways.twitter.TwitterQueryResponse;
 import com.sahilm.resources.Tweet;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
@@ -18,7 +20,7 @@ public class TwitterGatewayIT extends AbstractTestNGSpringContextTests {
     TwitterGateway twitterGateway;
 
     public void shouldBeAbleToQueryTweetsByHashtag() throws Exception {
-        List<Tweet> tweets = twitterGateway.searchByHashtag("#docker");
-        assertThat(tweets).isNotEmpty();
+        TwitterQueryResponse twitterQueryResponse = twitterGateway.searchByHashtag("#docker");
+        assertThat(twitterQueryResponse.getTweets()).isNotEmpty();
     }
 }

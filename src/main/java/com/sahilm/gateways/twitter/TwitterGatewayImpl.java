@@ -1,4 +1,4 @@
-package com.sahilm.gateways;
+package com.sahilm.gateways.twitter;
 
 import com.sahilm.exceptions.TwitterClientException;
 import com.sahilm.resources.Tweet;
@@ -25,14 +25,11 @@ public class TwitterGatewayImpl implements TwitterGateway {
     }
 
     @Override
-    public List<Tweet> searchByHashtag(String hashtag) {
+    public TwitterQueryResponse searchByHashtag(String hashtag) {
         Query query = new Query(hashtag);
         try {
             QueryResult result = twitter.search(query);
-            return result
-                    .getTweets()
-                    .stream().map(status -> new Tweet(status.getText()))
-                    .collect(Collectors.toList());
+            return new TwitterQueryResponseImpl(result);
         } catch (TwitterException te) {
             throw new TwitterClientException(te);
         }
