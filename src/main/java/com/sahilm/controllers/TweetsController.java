@@ -1,6 +1,6 @@
 package com.sahilm.controllers;
 
-import com.sahilm.resources.Tweets;
+import com.sahilm.resources.Tweet;
 import com.sahilm.services.TweetsService;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.inject.Inject;
+import java.util.List;
 
 @RestController
 @RequestMapping(
@@ -24,7 +25,7 @@ public class TweetsController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public Tweets getTweetsByHashtag(@RequestParam String hashtag) {
+    public List<Tweet> getTweetsByHashtag(@RequestParam String hashtag) {
         return tweetsService.getTweetsByHashtag(hashtag);
     }
 }

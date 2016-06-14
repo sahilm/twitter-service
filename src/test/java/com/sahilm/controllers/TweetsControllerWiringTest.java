@@ -4,7 +4,6 @@ package com.sahilm.controllers;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sahilm.resources.Tweet;
-import com.sahilm.resources.Tweets;
 import com.sahilm.services.TweetsService;
 import mockit.Mocked;
 import mockit.StrictExpectations;
@@ -20,6 +19,7 @@ import org.testng.annotations.Test;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import java.util.Arrays;
+import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -45,7 +45,7 @@ public class TweetsControllerWiringTest extends AbstractTestNGSpringContextTests
 
     @Test
     public void shouldReturnFetchedTweetsByHashtag() throws Exception {
-        Tweets expected = new Tweets(Arrays.asList(new Tweet("#docker is awesome"), new Tweet("#docker is the future")));
+        final List<Tweet> expected = Arrays.asList(new Tweet("#docker is awesome"), new Tweet("#docker is the future"));
         new StrictExpectations() {{
             tweetsService.getTweetsByHashtag(withEqual("docker"));
             result = expected;
@@ -55,7 +55,7 @@ public class TweetsControllerWiringTest extends AbstractTestNGSpringContextTests
                 .andExpect(status().isOk())
                 .andReturn();
 
-        Tweets actual = new ObjectMapper().readValue(result.getResponse().getContentAsString(), new TypeReference<Tweets>() {
+        List<Tweet> actual = new ObjectMapper().readValue(result.getResponse().getContentAsString(), new TypeReference<List<Tweet>>() {
         });
         assertThat(actual).isEqualTo(expected);
     }

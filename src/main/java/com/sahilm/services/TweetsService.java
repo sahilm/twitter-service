@@ -1,8 +1,7 @@
 package com.sahilm.services;
 
-import com.sahilm.gateways.TwitterGateway;
+import com.sahilm.gateways.TwitterClient;
 import com.sahilm.resources.Tweet;
-import com.sahilm.resources.Tweets;
 import org.springframework.stereotype.Component;
 
 import javax.inject.Inject;
@@ -10,16 +9,15 @@ import java.util.List;
 
 @Component
 public class TweetsService {
-    private final TwitterGateway twitterGateway;
+    private final TwitterClient twitterClient;
 
     @Inject
-    public TweetsService(TwitterGateway twitterGateway) {
-        this.twitterGateway = twitterGateway;
+    public TweetsService(TwitterClient twitterClient) {
+        this.twitterClient = twitterClient;
     }
 
-    public Tweets getTweetsByHashtag(String hashtag) {
-        List<Tweet> tweetsFromGateway = twitterGateway.queryByHashtag(normalizedHashtag(hashtag));
-        return new Tweets(tweetsFromGateway);
+    public List<Tweet> getTweetsByHashtag(String hashtag) {
+        return twitterClient.searchByHashtag(normalizedHashtag(hashtag));
     }
 
     private String normalizedHashtag(String hashtag) {

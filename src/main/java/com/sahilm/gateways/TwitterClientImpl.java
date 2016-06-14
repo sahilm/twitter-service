@@ -1,6 +1,6 @@
 package com.sahilm.gateways;
 
-import com.sahilm.exceptions.TwitterGatewayException;
+import com.sahilm.exceptions.TwitterClientException;
 import com.sahilm.resources.Tweet;
 import org.springframework.stereotype.Component;
 import twitter4j.Query;
@@ -13,24 +13,26 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
-public class TwitterGateway {
-    private final Twitter twitterClient;
+public class TwitterClientImpl implements TwitterClient {
+
+    private final Twitter twitter;
 
     @Inject
-    public TwitterGateway(Twitter twitterClient) {
-        this.twitterClient = twitterClient;
+    public TwitterClientImpl(Twitter twitter) {
+        this.twitter = twitter;
     }
 
-    public List<Tweet> queryByHashtag(String hashtag) {
+    @Override
+    public List<Tweet> searchByHashtag(String hashtag) {
         Query query = new Query(hashtag);
         try {
-            QueryResult result = twitterClient.search(query);
+            QueryResult result = twitter.search(query);
             return result
                     .getTweets()
                     .stream().map(status -> new Tweet(status.getText()))
                     .collect(Collectors.toList());
         } catch (TwitterException te) {
-            throw new TwitterGatewayException(te);
+            throw new TwitterClientException(te);
         }
     }
 }
