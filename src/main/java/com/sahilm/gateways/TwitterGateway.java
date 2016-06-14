@@ -1,5 +1,6 @@
 package com.sahilm.gateways;
 
+import com.sahilm.exceptions.TwitterGatewayException;
 import com.sahilm.resources.Tweet;
 import org.springframework.stereotype.Component;
 import twitter4j.Query;
@@ -29,7 +30,7 @@ public class TwitterGateway {
                     .stream().map(status -> new Tweet(status.getText()))
                     .collect(Collectors.toList());
         } catch (TwitterException te) {
-            throw new com.sahilm.exceptions.TwitterException(te);
+            throw new TwitterGatewayException(te);
         }
     }
 }
