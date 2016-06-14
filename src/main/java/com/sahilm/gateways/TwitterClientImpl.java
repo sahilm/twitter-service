@@ -2,6 +2,7 @@ package com.sahilm.gateways;
 
 import com.sahilm.exceptions.TwitterClientException;
 import com.sahilm.resources.Tweet;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import twitter4j.Query;
 import twitter4j.QueryResult;
@@ -13,6 +14,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 @Component
+@Profile("Production")
 public class TwitterClientImpl implements TwitterClient {
 
     private final Twitter twitter;
