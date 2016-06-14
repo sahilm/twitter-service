@@ -15,10 +15,10 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class TwitterGatewayIT extends AbstractTestNGSpringContextTests {
 
     @Inject
-    TwitterClient twitterClient;
+    TwitterGateway twitterGateway;
 
     public void shouldBeAbleToQueryTweetsByHashtag() throws Exception {
-        List<Tweet> tweets = twitterClient.searchByHashtag("#docker");
+        List<Tweet> tweets = twitterGateway.searchByHashtag("#docker");
         assertThat(tweets).isNotEmpty();
     }
 }

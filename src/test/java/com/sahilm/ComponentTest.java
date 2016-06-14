@@ -3,7 +3,7 @@ package com.sahilm;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sahilm.gateways.StubTwitterClient;
+import com.sahilm.gateways.StubTwitterGateway;
 import com.sahilm.resources.Tweet;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
@@ -47,6 +47,6 @@ public class ComponentTest extends AbstractTestNGSpringContextTests {
 
         List<Tweet> actual = new ObjectMapper().readValue(result.getResponse().getContentAsString(), new TypeReference<List<Tweet>>() {
         });
-        assertThat(actual).isEqualTo(StubTwitterClient.TWEETS);
+        assertThat(actual).isEqualTo(StubTwitterGateway.TWEETS);
     }
 }

@@ -15,12 +15,12 @@ import java.util.stream.Collectors;
 
 @Component
 @Profile("default")
-public class TwitterClientImpl implements TwitterClient {
+public class TwitterGatewayImpl implements TwitterGateway {
 
     private final Twitter twitter;
 
     @Inject
-    public TwitterClientImpl(Twitter twitter) {
+    public TwitterGatewayImpl(Twitter twitter) {
         this.twitter = twitter;
     }
 

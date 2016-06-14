@@ -4,6 +4,6 @@ import com.sahilm.resources.Tweet;
 
 import java.util.List;
 
-public interface TwitterClient {
+public interface TwitterGateway {
     List<Tweet> searchByHashtag(String hashtag);
 }
