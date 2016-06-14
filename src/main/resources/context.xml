@@ -13,7 +13,7 @@
 
     <bean id="twitterFactory" class="twitter4j.TwitterFactory"/>
 
-    <bean id="twitterClient" class="twitter4j.Twitter"
+    <bean id="twitterClient"
           factory-bean="twitterFactory" factory-method="getInstance"
           depends-on="twitterFactory"/>
 

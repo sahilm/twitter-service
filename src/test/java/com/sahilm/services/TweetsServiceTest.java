@@ -39,7 +39,7 @@ public class TweetsServiceTest {
 
         final List<Tweet> actualTweets = tweetsService.getTweetsByHashtag("#microservices");
         // I'm writing Clojure in Java :(
-        assertThat(actualTweets.stream().map(tweet -> tweet.getText())).isEqualTo(expectedTweets);
+        assertThat(actualTweets.stream().map(Tweet::getText)).isEqualTo(expectedTweets);
     }
 
     @Test

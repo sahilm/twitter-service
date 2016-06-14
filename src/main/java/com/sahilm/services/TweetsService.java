@@ -22,7 +22,7 @@ public class TweetsService {
         TwitterQueryResponse response = twitterGateway.searchByHashtag(normalizedHashtag(hashtag));
         return response.getTweets().
                 stream().
-                map(strStatus -> new Tweet(strStatus)).
+                map(Tweet::new).
                 collect(Collectors.toList());
     }
 
