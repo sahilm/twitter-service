@@ -2,7 +2,6 @@ package com.sahilm.services;
 
 import com.sahilm.gateways.twitter.TwitterGateway;
 import com.sahilm.gateways.twitter.TwitterQueryResponse;
-import com.sahilm.gateways.twitter.TwitterQueryResponseImpl;
 import com.sahilm.resources.Tweet;
 import mockit.Mocked;
 import mockit.StrictExpectations;

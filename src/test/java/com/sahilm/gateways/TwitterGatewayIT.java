@@ -2,13 +2,11 @@ package com.sahilm.gateways;
 
 import com.sahilm.gateways.twitter.TwitterGateway;
 import com.sahilm.gateways.twitter.TwitterQueryResponse;
-import com.sahilm.resources.Tweet;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.testng.annotations.Test;
 
 import javax.inject.Inject;
-import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

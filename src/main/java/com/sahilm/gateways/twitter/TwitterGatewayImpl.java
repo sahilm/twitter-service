@@ -1,7 +1,6 @@
 package com.sahilm.gateways.twitter;
 
 import com.sahilm.exceptions.TwitterClientException;
-import com.sahilm.resources.Tweet;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 import twitter4j.Query;
@@ -10,8 +9,6 @@ import twitter4j.Twitter;
 import twitter4j.TwitterException;
 
 import javax.inject.Inject;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Component
 @Profile("default")

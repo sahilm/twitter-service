@@ -2,8 +2,6 @@ package com.sahilm.gateways;
 
 import com.sahilm.gateways.twitter.TwitterGateway;
 import com.sahilm.gateways.twitter.TwitterQueryResponse;
-import com.sahilm.gateways.twitter.TwitterQueryResponseImpl;
-import com.sahilm.resources.Tweet;
 import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
