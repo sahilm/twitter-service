@@ -59,4 +59,9 @@ public class TweetsControllerWiringTest extends AbstractTestNGSpringContextTests
         });
         assertThat(actual).isEqualTo(expected);
     }
+
+    @Test
+    public void shouldReturnBadRequestIfHashtagNotProvided() throws Exception {
+        this.mockMvc.perform(get("/tweets")).andExpect(status().isBadRequest());
+    }
 }
