@@ -3,6 +3,7 @@ package com.sahilm;
 
 import com.jayway.jsonpath.JsonPath;
 import com.sahilm.gateways.StubTwitterGateway;
+import com.sahilm.support.TwitterServiceActiveProfileResolver;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
@@ -25,7 +26,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Test
 @WebAppConfiguration
 @ContextConfiguration(locations = "classpath:context.xml")
-@ActiveProfiles("ComponentTest")
+@ActiveProfiles(resolver = TwitterServiceActiveProfileResolver.class, value = "ComponentTest")
 public class ComponentTest extends AbstractTestNGSpringContextTests {
 
     @Inject
@@ -47,7 +48,6 @@ public class ComponentTest extends AbstractTestNGSpringContextTests {
                 .andExpect(content().contentType("application/json;charset=UTF-8"))
                 .andReturn();
         final String responseBody = mvcResult.getResponse().getContentAsString();
-        // This test tells me that the returned JSON needs to have a top-level tweets key.
         final List<String> actual = JsonPath.read(responseBody, "$..text");
         assertThat(actual).isEqualTo(expectedTweets);
     }
