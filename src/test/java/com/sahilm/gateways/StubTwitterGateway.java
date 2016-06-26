@@ -10,7 +10,7 @@ import java.util.Collections;
 import java.util.List;
 
 @Component
-@Profile("ComponentTest")
+@Profile("Test")
 public class StubTwitterGateway implements TwitterGateway {
     public final static List<String> TWEETS = Collections.unmodifiableList(
             Arrays.asList("#docker is the best", "#microservices for the win"));

@@ -28,7 +28,7 @@
         <property name="valueSerializer">
             <bean id="jackson2JsonRedisSerializer"
                   class="org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer">
-                <constructor-arg type="java.lang.Class" value="java.lang.Object" />
+                <constructor-arg type="java.lang.Class" value="java.lang.Object"/>
             </bean>
         </property>
     </bean>
@@ -39,4 +39,5 @@
         <constructor-arg ref="redisTemplate"/>
         <property name="defaultExpiration" value="300"/>
     </bean>
+    <import resource="test.xml"/>
 </beans>

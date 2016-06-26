@@ -26,7 +26,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Test
 @WebAppConfiguration
 @ContextConfiguration(locations = "classpath:context.xml")
-@ActiveProfiles(resolver = TwitterServiceActiveProfileResolver.class, value = "ComponentTest")
+@ActiveProfiles("Test")
 public class ComponentTest extends AbstractTestNGSpringContextTests {
 
     @Inject

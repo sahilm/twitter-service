@@ -7,6 +7,7 @@ import com.sahilm.resources.Tweet;
 import com.sahilm.services.TweetsService;
 import mockit.Mocked;
 import mockit.StrictExpectations;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -28,6 +29,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @Test
 @WebAppConfiguration
 @ContextConfiguration(locations = "classpath:context.xml")
+@ActiveProfiles("Test")
 public class TweetsControllerWiringTest extends AbstractTestNGSpringContextTests {
 
     @Inject
