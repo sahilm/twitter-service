@@ -20,7 +20,7 @@ public class EndToEndTest {
 
     @BeforeClass
     public void setUp() throws Exception {
-        Application.start(false);
+        Application.start(Application.JoinWithMainThread.NO);
     }
 
     @AfterClass

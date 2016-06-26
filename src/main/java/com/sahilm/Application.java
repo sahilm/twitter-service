@@ -9,22 +9,27 @@ public class Application {
     private static Server server;
 
     public static void main(final String[] args) throws Exception {
-        start(true);
+        start(JoinWithMainThread.YES);
     }
 
-    public static void start(final boolean join) throws Exception {
+    public static void start(final JoinWithMainThread joinWithMainThread) throws Exception {
         server = new Server(8080);
         final WebAppContext webapp = new WebAppContext();
         webapp.setContextPath("/");
         webapp.setWar(new ClassPathResource("webapp").getURI().toString());
         server.setHandler(webapp);
         server.start();
-        if (join) {
+        if (joinWithMainThread.equals(JoinWithMainThread.YES)) {
             server.join();
         }
     }
 
     public static void stop() throws Exception {
         server.stop();
+    }
+
+    public enum JoinWithMainThread {
+        YES,
+        NO
     }
 }
