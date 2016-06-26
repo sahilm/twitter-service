@@ -3,6 +3,7 @@ package com.sahilm.services;
 import com.sahilm.gateways.twitter.TwitterGateway;
 import com.sahilm.gateways.twitter.TwitterQueryResponse;
 import com.sahilm.resources.Tweet;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Component;
 
 import javax.inject.Inject;
@@ -18,6 +19,7 @@ public class TweetsService {
         this.twitterGateway = twitterGateway;
     }
 
+    @Cacheable("tweets")
     public List<Tweet> getTweetsByHashtag(final String hashtag) {
         final TwitterQueryResponse response = twitterGateway.searchByHashtag(normalizedHashtag(hashtag));
         return response.getTweets().
