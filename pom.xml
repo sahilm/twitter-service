@@ -31,6 +31,7 @@
         <maven-jar-plugin.version>3.0.0</maven-jar-plugin.version>
         <maven-surefire-plugin.version>2.19.1</maven-surefire-plugin.version>
         <maven-assembly-plugin.version>2.6</maven-assembly-plugin.version>
+        <spring-data-redis.version>1.7.2.RELEASE</spring-data-redis.version>
     </properties>
 
     <build>
@@ -95,7 +96,9 @@
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
                             <classpathLayoutType>custom</classpathLayoutType>
-                            <customClasspathLayout>$${artifact.groupId}.$${artifact.artifactId}-$${artifact.version}.$${artifact.extension}</customClasspathLayout>
+                            <customClasspathLayout>
+                                $${artifact.groupId}.$${artifact.artifactId}-$${artifact.version}.$${artifact.extension}
+                            </customClasspathLayout>
                             <mainClass>com.sahilm.Application</mainClass>
                         </manifest>
                     </archive>
@@ -176,6 +179,11 @@
             <groupId>ch.qos.logback</groupId>
             <artifactId>logback-classic</artifactId>
             <version>${logback-classic.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.data</groupId>
+            <artifactId>spring-data-redis</artifactId>
+            <version>${spring-data-redis.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
