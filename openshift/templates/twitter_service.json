@@ -52,7 +52,7 @@
             "type": "ConfigChange"
           }
         ],
-        "replicas": 3,
+        "replicas": 1,
         "selector": {
           "deploymentConfig": "twitter-service-frontend"
         },
@@ -172,7 +172,12 @@
                     "containerPort": 6379,
                     "protocol": "TCP"
                   }
-                ]
+                ],
+                "readinessProbe": {
+                  "tcpSocket": {
+                    "port": 6379
+                  }
+                }
               }
             ]
           }
