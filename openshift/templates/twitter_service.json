@@ -120,6 +120,85 @@
           "name": "twitter-service-frontend"
         }
       }
+    },
+    {
+      "kind": "DeploymentConfig",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "twitter-service-cache",
+        "labels": {
+          "microservice": "twitter-service",
+          "name": "twitter-service-cache"
+        }
+      },
+      "spec": {
+        "triggers": [
+          {
+            "type": "ImageChange",
+            "imageChangeParams": {
+              "automatic": true,
+              "containerNames": [
+                "twitter-service-cache"
+              ],
+              "from": {
+                "kind": "ImageStreamTag",
+                "name": "redis:latest"
+              }
+            }
+          },
+          {
+            "type": "ConfigChange"
+          }
+        ],
+        "replicas": 1,
+        "selector": {
+          "deploymentConfig": "twitter-service-cache"
+        },
+        "template": {
+          "metadata": {
+            "name": "twitter-service-cache",
+            "labels": {
+              "deploymentConfig": "twitter-service-cache",
+              "microservice":"twitter-service"
+            }
+          },
+          "spec": {
+            "containers": [
+              {
+                "name": "twitter-service-cache",
+                "image": "redis",
+                "ports": [
+                  {
+                    "containerPort": 6379,
+                    "protocol": "TCP"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "kind": "Service",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "twitter-service-cache",
+        "labels": {
+          "microservice": "twitter-service"
+        }
+      },
+      "spec": {
+        "ports": [
+          {
+            "port": 6379,
+            "targetPort": 6379
+          }
+        ],
+        "selector": {
+          "deploymentConfig": "twitter-service-cache"
+        }
+      }
     }
   ]
 }
