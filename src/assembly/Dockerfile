@@ -16,5 +16,5 @@ EXPOSE 8080
 
 WORKDIR /opt/twitter-service/
 
-ENTRYPOINT java -jar twitter-service.jar
+ENTRYPOINT java -DAPP_HOME=$APP_HOME -jar twitter-service.jar
 

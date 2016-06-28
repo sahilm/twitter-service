@@ -1,0 +1,14 @@
+version: '2'
+services:
+  twitter-service:
+    image: sahilm/twitter-service
+    ports:
+      - "8080:8080"
+    volumes:
+      - $PWD/twitter-service-props:/twitter-service-props
+    environment:
+      - APP_HOME=/twitter-service-props
+    depends_on:
+      - redis
+  redis:
+    image: redis

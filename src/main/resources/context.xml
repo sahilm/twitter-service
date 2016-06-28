@@ -11,9 +11,32 @@
        http://www.springframework.org/schema/mvc
        http://www.springframework.org/schema/mvc/spring-mvc.xsd http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd">
     <context:component-scan base-package="com.sahilm"/>
-    <context:property-placeholder location="classpath:redis.properties"/>
 
-    <bean id="twitterFactory" class="twitter4j.TwitterFactory"/>
+    <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="ignoreResourceNotFound" value="false"/>
+        <property name="locations">
+            <list>
+                <value>file:${APP_HOME}/redis.properties</value>
+                <value>file:${APP_HOME}/twitter4j.properties</value>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="twitterConfigurationBuilder" class="twitter4j.conf.ConfigurationBuilder">
+        <property name="debugEnabled" value="true"/>
+        <property name="OAuthConsumerKey" value="${twitter4j.oauth.consumerKey}"/>
+        <property name="OAuthConsumerSecret" value="${twitter4j.oauth.consumerSecret}"/>
+        <property name="OAuthAccessToken" value="${twitter4j.oauth.accessToken}"/>
+        <property name="OAuthAccessTokenSecret" value="${twitter4j.oauth.accessTokenSecret}"/>
+    </bean>
+
+    <bean id="twitterConfiguration" class="twitter4j.conf.ConfigurationBase" factory-bean="twitterConfigurationBuilder"
+          factory-method="build"/>
+
+    <bean id="twitterFactory" class="twitter4j.TwitterFactory">
+        <constructor-arg ref="twitterConfiguration"/>
+    </bean>
+
 
     <bean id="twitterClient"
           factory-bean="twitterFactory" factory-method="getInstance"

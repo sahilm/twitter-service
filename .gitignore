@@ -2,3 +2,4 @@
 *.iml
 target/
 twitter4j.properties
+twitter-service-props/
