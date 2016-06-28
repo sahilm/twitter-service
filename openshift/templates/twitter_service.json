@@ -61,7 +61,7 @@
             "name": "twitter-service-frontend",
             "labels": {
               "deploymentConfig": "twitter-service-frontend",
-              "microservice":"twitter-service"
+              "microservice": "twitter-service"
             }
           },
           "spec": {
@@ -122,6 +122,23 @@
       }
     },
     {
+      "kind": "PersistentVolumeClaim",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "redis-disk-space"
+      },
+      "spec": {
+        "accessModes": [
+          "ReadWriteOnce"
+        ],
+        "resources": {
+          "requests": {
+            "storage": "100Mi"
+          }
+        }
+      }
+    },
+    {
       "kind": "DeploymentConfig",
       "apiVersion": "v1",
       "metadata": {
@@ -159,7 +176,7 @@
             "name": "twitter-service-cache",
             "labels": {
               "deploymentConfig": "twitter-service-cache",
-              "microservice":"twitter-service"
+              "microservice": "twitter-service"
             }
           },
           "spec": {
@@ -177,6 +194,20 @@
                   "tcpSocket": {
                     "port": 6379
                   }
+                },
+                "volumeMounts": [
+                  {
+                    "mountPath": "/data",
+                    "name": "redis-data-dir"
+                  }
+                ]
+              }
+            ],
+            "volumes": [
+              {
+                "name": "redis-data-dir",
+                "persistentVolumeClaim": {
+                  "claimName": "redis-disk-space"
                 }
               }
             ]
