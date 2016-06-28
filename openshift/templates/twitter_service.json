@@ -1,0 +1,125 @@
+{
+  "kind": "Template",
+  "apiVersion": "v1",
+  "metadata": {
+    "name": "twitter-service",
+    "annotations": {
+      "description": "A template that creates a Twitter service using Redis and Java"
+    }
+  },
+  "labels": {
+    "template": "twitter-service",
+    "microservice": "twitter-service"
+  },
+  "parameters": [],
+  "objects": [
+    {
+      "kind": "ImageStream",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "twitter-service",
+        "labels": {
+          "microservice": "twitter-service"
+        }
+      }
+    },
+    {
+      "kind": "DeploymentConfig",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "twitter-service-frontend",
+        "labels": {
+          "microservice": "twitter-service",
+          "name": "twitter-service-frontend"
+        }
+      },
+      "spec": {
+        "triggers": [
+          {
+            "type": "ImageChange",
+            "imageChangeParams": {
+              "automatic": true,
+              "containerNames": [
+                "twitter-service-frontend"
+              ],
+              "from": {
+                "kind": "ImageStreamTag",
+                "name": "twitter-service:latest"
+              }
+            }
+          },
+          {
+            "type": "ConfigChange"
+          }
+        ],
+        "replicas": 3,
+        "selector": {
+          "deploymentConfig": "twitter-service-frontend"
+        },
+        "template": {
+          "metadata": {
+            "name": "twitter-service-frontend",
+            "labels": {
+              "deploymentConfig": "twitter-service-frontend",
+              "microservice":"twitter-service"
+            }
+          },
+          "spec": {
+            "containers": [
+              {
+                "name": "twitter-service-frontend",
+                "image": "twitter-service",
+                "ports": [
+                  {
+                    "containerPort": 8080,
+                    "protocol": "TCP"
+                  }
+                ]
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "kind": "Service",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "twitter-service-frontend",
+        "labels": {
+          "microservice": "twitter-service"
+        }
+      },
+      "spec": {
+        "ports": [
+          {
+            "port": 80,
+            "targetPort": 8080
+          }
+        ],
+        "selector": {
+          "deploymentConfig": "twitter-service-frontend"
+        }
+      }
+    },
+    {
+      "kind": "Route",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "twitter-service-http-route",
+        "labels": {
+          "microservice": "twitter-service"
+        },
+        "annotations": {
+          "description": "Route for twitter service's HTTP frontend"
+        }
+      },
+      "spec": {
+        "to": {
+          "kind": "Service",
+          "name": "twitter-service-frontend"
+        }
+      }
+    }
+  ]
+}
