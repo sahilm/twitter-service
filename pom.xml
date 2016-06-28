@@ -154,22 +154,11 @@
                         <image>
                             <name>%g/%a</name>
                             <build>
-                                <from>java:openjdk-8-alpine</from>
-                                <maintainer>sahil.muthoo@gmail.com</maintainer>
+                                <dockerFileDir>.</dockerFileDir>
                                 <tags>
                                     <tag>latest</tag>
                                     <tag>${project.version}</tag>
                                 </tags>
-                                <ports>
-                                    <port>8080</port>
-                                </ports>
-                                <entryPoint>
-                                    <exec>
-                                        <arg>java</arg>
-                                        <arg>-jar</arg>
-                                        <arg>/opt/twitter-service/twitter-service.jar</arg>
-                                    </exec>
-                                </entryPoint>
                                 <assembly>
                                     <mode>dir</mode>
                                     <basedir>/opt/twitter-service</basedir>
