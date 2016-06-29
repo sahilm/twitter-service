@@ -83,13 +83,33 @@
             "containers": [
               {
                 "name": "twitter-service-frontend",
+                "env": [
+                  {
+                    "name": "APP_HOME",
+                    "value": "/twitter-service-props"
+                  }
+                ],
                 "image": "twitter-service",
                 "ports": [
                   {
                     "containerPort": 8080,
                     "protocol": "TCP"
                   }
+                ],
+                "volumeMounts": [
+                  {
+                    "name": "app-home",
+                    "mountPath": "/twitter-service-props"
+                  }
                 ]
+              }
+            ],
+            "volumes": [
+              {
+                "name": "app-home",
+                "configMap": {
+                  "name": "twitter-service-props"
+                }
               }
             ]
           }
