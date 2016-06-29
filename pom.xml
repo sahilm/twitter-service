@@ -161,7 +161,6 @@
                                 </tags>
                                 <assembly>
                                     <mode>dir</mode>
-                                    <basedir>/opt/twitter-service</basedir>
                                     <descriptor>src.xml</descriptor>
                                 </assembly>
                             </build>
