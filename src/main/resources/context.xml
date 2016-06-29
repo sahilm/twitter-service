@@ -13,7 +13,7 @@
     <context:component-scan base-package="com.sahilm"/>
 
     <bean class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-        <property name="ignoreResourceNotFound" value="false"/>
+        <property name="ignoreResourceNotFound" value="true"/>
         <property name="locations">
             <list>
                 <value>file:${APP_HOME}/redis.properties</value>
@@ -24,10 +24,10 @@
 
     <bean id="twitterConfigurationBuilder" class="twitter4j.conf.ConfigurationBuilder">
         <property name="debugEnabled" value="true"/>
-        <property name="OAuthConsumerKey" value="${twitter4j.oauth.consumerKey}"/>
-        <property name="OAuthConsumerSecret" value="${twitter4j.oauth.consumerSecret}"/>
-        <property name="OAuthAccessToken" value="${twitter4j.oauth.accessToken}"/>
-        <property name="OAuthAccessTokenSecret" value="${twitter4j.oauth.accessTokenSecret}"/>
+        <property name="OAuthConsumerKey" value="${twitter4j.oauth.consumerKey:consumerKey}"/>
+        <property name="OAuthConsumerSecret" value="${twitter4j.oauth.consumerSecret:consumerSecret}"/>
+        <property name="OAuthAccessToken" value="${twitter4j.oauth.accessToken:accessToken}"/>
+        <property name="OAuthAccessTokenSecret" value="${twitter4j.oauth.accessTokenSecret:accessTokenSecret}"/>
     </bean>
 
     <bean id="twitterConfiguration" class="twitter4j.conf.ConfigurationBase" factory-bean="twitterConfigurationBuilder"
@@ -43,7 +43,7 @@
           depends-on="twitterFactory"/>
 
     <bean id="jedisConnectionFactory" class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory"
-          p:hostName="${redis.host}" p:port="${redis.port}" p:usePool="true">
+          p:hostName="${redis.host:localhost}" p:port="${redis.port:6379}" p:usePool="true">
     </bean>
 
     <bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate"

@@ -20,6 +20,7 @@ import org.testng.annotations.Test;
 import javax.annotation.PostConstruct;
 import javax.inject.Inject;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -60,6 +61,22 @@ public class TweetsControllerWiringTest extends AbstractTestNGSpringContextTests
         final List<Tweet> actual = new ObjectMapper().readValue(result.getResponse().getContentAsString(), new TypeReference<List<Tweet>>() {
         });
         assertThat(actual).isEqualTo(expected);
+    }
+
+    @Test
+    public void shouldReturnRuntime() throws Exception {
+        final List<Tweet> expected = Collections.emptyList();
+        new StrictExpectations() {{
+            tweetsService.getTweetsByHashtag(withEqual("docker"));
+            result = expected;
+        }};
+
+        final MvcResult result = this.mockMvc.perform(get("/tweets?hashtag=docker"))
+                .andExpect(status().isOk())
+                .andReturn();
+
+        final String actualRuntime = result.getResponse().getHeader("x-runtime");
+        assertThat(actualRuntime).isNotEmpty();
     }
 
     @Test

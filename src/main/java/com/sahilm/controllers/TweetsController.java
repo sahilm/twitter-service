@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 @RestController
@@ -16,7 +17,6 @@ import java.util.List;
         value = "tweets",
         produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public class TweetsController {
-
     private final TweetsService tweetsService;
 
     @Inject
@@ -25,7 +25,11 @@ public class TweetsController {
     }
 
     @RequestMapping(method = RequestMethod.GET)
-    public List<Tweet> getTweetsByHashtag(@RequestParam final String hashtag) {
-        return tweetsService.getTweetsByHashtag(hashtag);
+    public List<Tweet> getTweetsByHashtag(@RequestParam final String hashtag, HttpServletResponse response) {
+        long startTime = System.nanoTime();
+        final List<Tweet> tweets = tweetsService.getTweetsByHashtag(hashtag);
+        long estimatedTime = System.nanoTime() - startTime;
+        response.setHeader("x-runtime", String.valueOf(estimatedTime));
+        return tweets;
     }
 }
