@@ -21,6 +21,21 @@
         "labels": {
           "microservice": "twitter-service"
         }
+      },
+      "spec": {
+        "dockerImageRepository": "registry.paas.symcpe.com:443/sahilm/twitter-service",
+        "tags": [
+          {
+            "from": {
+              "kind": "DockerImage",
+              "name": "sahilm/twitter-service"
+            },
+            "name": "latest",
+            "importPolicy": {
+              "scheduled": true
+            }
+          }
+        ]
       }
     },
     {
@@ -115,6 +130,7 @@
         }
       },
       "spec": {
+        "host": "acp.us-east-1.aws.symcpe.net",
         "to": {
           "kind": "Service",
           "name": "twitter-service-frontend"
@@ -139,6 +155,7 @@
       }
     },
     {
+
       "kind": "DeploymentConfig",
       "apiVersion": "v1",
       "metadata": {
@@ -211,6 +228,31 @@
             ]
           }
         }
+      }
+    },
+    {
+      "kind": "ImageStream",
+      "apiVersion": "v1",
+      "metadata": {
+        "name": "redis",
+        "labels": {
+          "microservice": "twitter-service"
+        }
+      },
+      "spec": {
+        "dockerImageRepository": "registry.paas.symcpe.com:443/sahilm/redis",
+        "tags": [
+          {
+            "from": {
+              "kind": "DockerImage",
+              "name": "sahilm/redis"
+            },
+            "name": "latest",
+            "importPolicy": {
+              "scheduled": true
+            }
+          }
+        ]
       }
     },
     {
