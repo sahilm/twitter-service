@@ -146,11 +146,11 @@
           "microservice": "twitter-service"
         },
         "annotations": {
-          "description": "Route for twitter service's HTTP frontend"
+          "description": "Route for twitter service's HTTP frontend",
+          "openshift.io/host.generated": "true"
         }
       },
       "spec": {
-        "host": "acp.us-east-1.aws.symcpe.net",
         "to": {
           "kind": "Service",
           "name": "twitter-service-frontend"
@@ -175,7 +175,6 @@
       }
     },
     {
-
       "kind": "DeploymentConfig",
       "apiVersion": "v1",
       "metadata": {
