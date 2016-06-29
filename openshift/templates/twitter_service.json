@@ -206,9 +206,7 @@
             "volumes": [
               {
                 "name": "redis-data-dir",
-                "persistentVolumeClaim": {
-                  "claimName": "redis-disk-space"
-                }
+                "emptyDir": {}
               }
             ]
           }
