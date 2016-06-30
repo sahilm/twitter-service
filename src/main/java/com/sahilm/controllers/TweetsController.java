@@ -29,11 +29,11 @@ public class TweetsController {
 
     @RequestMapping(method = RequestMethod.GET)
     public List<Tweet> getTweetsByHashtag(@RequestParam final String hashtag, HttpServletResponse response) {
-        LOGGER.info("Fetching tweets for #: {}", hashtag);
+        LOGGER.info("Fetching tweets for #{}", hashtag);
         long startTime = System.nanoTime();
         final List<Tweet> tweets = tweetsService.getTweetsByHashtag(hashtag);
         final double estimatedTime = (double) (System.nanoTime() - startTime);
-        response.setHeader("x-runtime", String.valueOf(estimatedTime / 1E9));
+        response.setHeader("x-runtime", String.valueOf(estimatedTime / 100_000_000));
         LOGGER.info("Done in {}", estimatedTime);
         return tweets;
     }
